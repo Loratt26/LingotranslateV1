@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lingo Translator</title>
+  <meta name="theme-color" content="#0b1020" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+  <link rel="shortcut icon" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/favicon-192.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <!-- Dark-mode FOUC prevention: runs before any paint -->
+  <script>
+    (function () {
+      var t = localStorage.getItem('lingo_theme');
+      var dark = t ? t === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+    })();
+  </script>
+  <script>
+    (function () {
+      var proxyUrl = localStorage.getItem('lingo_proxy_url');
+      if (!proxyUrl) return;
+
+      try {
+        var parsed = new URL(proxyUrl, window.location.origin);
+        var isSameOriginApi = parsed.origin === window.location.origin && parsed.pathname.indexOf('/api/') === 0;
+        if (!isSameOriginApi) {
+          localStorage.removeItem('lingo_proxy_url');
+        }
+      } catch (_error) {
+        localStorage.removeItem('lingo_proxy_url');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+name = "lingo-proxy"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+# Secrets are set via CLI, never hardcode here:
+#   wrangler secret put OPENAI_API_KEY
+#   wrangler secret put EXTENSION_TOKEN
